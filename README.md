@@ -17,6 +17,9 @@ A python based tool for exploiting and managing Android devices via ADB
 # Functionalities
 
 List Devices
+'''
+adbsploit devices
+'''
 
 Connect Devices
 
