@@ -1,15 +1,10 @@
-"""
-A tool for exploiting android devices from adb
-Usage:
-For usage instructions execute the following lines:
->>> python adbsploit.py -help
-"""
 import os
 import shutil
 import sys
 import time
 import adbutils
 import fire
+import vlc
 from pyfiglet import Figlet
 from rich.console import Console
 from rich.table import Table
@@ -27,9 +22,12 @@ class Utils:
 
 
 class Cli(object):
-    gdevice = 'serial'
+    """
+    A tool for exploiting android devices from adb
+    """
 
     def devices(self):
+        '''devices'''
         Utils.banner()
         table = Table()
         table.add_column("Device detected", style="cyan")
@@ -208,9 +206,17 @@ class Cli(object):
         ip = d.wlan_ip()
         print(ip)
 
-    def extract_app(self, device):
+    def appinfo(self, device, app):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        print(Fore.GREEN + str(d.package_info(app)))
 
+    #TODO
+    def extract_app(self, device, app):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        path = d.shell("pm path "+app)
+        d.shell("pull "+path[8:])
 
     def battery(self, device):
         Utils.banner()
@@ -262,16 +268,6 @@ class Cli(object):
             print(Fore.GREEN + 'The all volume types is now set to ' + set + '...')
         else:
             print(Fore.RED + "This type doesn't exists...")
-
-
-    def keycode(self):
-        Utils.banner()
-
-    def current_app(self):
-        Utils.banner()
-
-    def send_key(self):
-        Utils.banner()
 
     def check_screen(self, device):
         Utils.banner()
@@ -447,12 +443,29 @@ class Cli(object):
         d = adbutils.adb.device(device)
         print(Fore.GREEN+d.shell("cat /sys/class/net/wlan0/address"))
 
-    def screenrecord(self):
+    def screenrecord(self, device, time):
         Utils.banner()
 
-    #TODO
-    def stream_screen(self):
+    def stream_screen(self, device):
         Utils.banner()
+        if sys.platform.startswith('win32'):
+            if shutil.which('vlc') is not None:
+                os.system("adb -s " + device + " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -")
+            else:
+                print(Fore.RED + "For streaming screen we need VLC installed on your system...")
+                print(Fore.RED + "You can install it from https://www.videolan.org/vlc/")
+        elif sys.platform.startswith('linux'):
+            if shutil.which('vlc') is not None:
+                os.system("adb -s " + device + " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -")
+            else:
+                print(Fore.RED + "For streaming screen we need VLC installed on your system...")
+                print(Fore.RED + "You can install it from https://www.videolan.org/vlc/")
+        elif sys.platform.startswith('darwin'):
+            if shutil.which('/Applications/VLC.app/Contents/MacOS/VLC') is not None:
+                os.system("adb -s "+device+" exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -")
+            else:
+                print(Fore.RED+"For streaming screen we need VLC installed on your system...")
+                print(Fore.RED + "You can install it from https://www.videolan.org/vlc/")
 
     def screenshot(self, device, name='screenshot'):
         Utils.banner()
@@ -478,6 +491,15 @@ class Cli(object):
             print(Fore.RED+"You must specify a port to listen on your device...")
         else:
             os.system("adb tcpip "+port)
+
+    def keycode(self):
+        Utils.banner()
+
+    def current_app(self):
+        Utils.banner()
+
+    def send_key(self):
+        Utils.banner()
 
     def version(self):
         """Show the version of the tool"""
