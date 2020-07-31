@@ -2,7 +2,7 @@
 A tool for exploiting android devices from adb
 Usage:
 For usage instructions execute the following lines:
->>> python main.py -help
+>>> python adbsploit.py -help
 """
 import os
 import sys
@@ -176,32 +176,89 @@ class Cli(object):
         else:
             os.system('adb -s ' + device + " logcat " + "app")
 
-    def start_app(self):
+    def start_app(self, device, app, activity='None'):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        if activity == 'None':
+            d.app_start(app)
+            print(Fore.GREEN+"The app "+app+" is now starting...")
+        else:
+            d.app_start(app, activity)
+            print(Fore.GREEN + "The app " + app + "with the activity "+activity+ " is now starting...")
+
+    def stop_app(self, device, app):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        d.app_stop(app)
+        print(Fore.GREEN + "The app " + app + " is now stopped...")
+
+    def clear_app(self, device, app):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        d.app_clear(app)
+        print(Fore.GREEN + "The app " + app + " is now clear...")
+
+    def show_ip(self, device):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        ip = d.wlan_ip()
+        print(ip)
+
+    def extract_app(self, device):
         Utils.banner()
 
-    def stop_app(self):
-        Utils.banner()
 
-    def clear_app(self):
+    def battery(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        bat = d.shell("dumpsys battery")
+        print(Fore.GREEN+"The battery for device "+device+" is:")
+        print(Fore.MAGENTA+bat)
 
-    def show_ip(self):
+    def netstat(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        bat = d.shell("netstat")
+        print(Fore.GREEN + "The netstat for device " + device + " is:")
+        print(Fore.MAGENTA + bat)
 
-    def extract_app(self):
+    def airplane(self, device, status):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        if status == 'on':
+            d.switch_airplane(True)
+            print(Fore.GREEN + "The Airplane Mode is activated...")
+        elif status == 'off':
+            d.switch_airplane(False)
+            print(Fore.GREEN + "The Airplane Mode is deactivated...")
+        else:
+            print(Fore.RED+"The status value only accepts on or off")
 
-    def battery(self):
+    def sound(self, device, type, set):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        if type == 'media':
+            d.shell('media volume --stream 3 --set '+set)
+            print(Fore.GREEN+'The media volume is now set to '+set+'...')
+        elif type == 'call':
+            d.shell('media volume --stream 0 --set ' + set)
+            print(Fore.GREEN + 'The call volume is now set to ' + set + '...')
+        elif type == 'system':
+            d.shell('media volume --stream 1 --set ' + set)
+            print(Fore.GREEN + "The system volume is now set to " + set + '...')
+        elif type == 'notifications':
+            d.shell('media volume --stream 2 --set ' + set)
+            print(Fore.GREEN + 'The notifications volume is now set to ' + set + '...')
+        elif type == 'all':
+            d.shell()
+            d.shell('media volume --stream 3 --set ' + set)
+            d.shell('media volume --stream 2 --set ' + set)
+            d.shell('media volume --stream 1 --set ' + set)
+            d.shell('media volume --stream 0 --set ' + set)
+            print(Fore.GREEN + 'The all volume types is now set to ' + set + '...')
+        else:
+            print(Fore.RED + "This type doesn't exists...")
 
-    def netstat(self):
-        Utils.banner()
-
-    def airplane(self):
-        Utils.banner()
-
-    def sound(self):
-        Utils.banner()
 
     def keycode(self):
         Utils.banner()
@@ -212,37 +269,175 @@ class Cli(object):
     def send_key(self):
         Utils.banner()
 
-    def check_screen(self):
+    def check_screen(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        screen = d.is_screen_on()
+        if screen == True:
+            print(Fore.GREEN+'The screen is on...')
+        else:
+            print(Fore.GREEN + 'The screen is off...')
 
     def dump_hierarchy(self, device):
         Utils.banner()
         d = adbutils.adb.device(device)
         print(Fore.GREEN + d.dump_hierarchy())
 
-    def key_event(self):
+    def keyevent(self, device, key):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        k = d.keyevent(key)
+        print(Fore.GREEN+"They key event is processed correctly...")
+
+    def show_keyevents(self):
+        Utils.banner()
+        table = Table()
+        table.add_column("Code", style="cyan")
+        table.add_column("Keycode", style="magenta")
+        table.add_row("0", "KEYCODE_UNKNOWN")
+        table.add_row("1", "KEYCODE_MENU")
+        table.add_row("2", "KEYCODE_SOFT_RIGHT")
+        table.add_row("3", "KEYCODE_HOME")
+        table.add_row("4", "KEYCODE_BACK")
+        table.add_row("5", "KEYCODE_CALL")
+        table.add_row("6", "KEYCODE_ENDCALL")
+        table.add_row("7", "KEYCODE_0")
+        table.add_row("8", "KEYCODE_1")
+        table.add_row("9", "KEYCODE_2")
+        table.add_row("10", "KEYCODE_3")
+        table.add_row("11", "KEYCODE_4")
+        table.add_row("12", "KEYCODE_5")
+        table.add_row("13", "KEYCODE_6")
+        table.add_row("14", "KEYCODE_7")
+        table.add_row("15", "KEYCODE_8")
+        table.add_row("16", "KEYCODE_9")
+        table.add_row("17", "KEYCODE_STAR")
+        table.add_row("18", "KEYCODE_POUND")
+        table.add_row("19", "KEYCODE_DPAD_UP")
+        table.add_row("20", "KEYCODE_DPAD_DOWN")
+        table.add_row("21", "KEYCODE_DPAD_LEFT")
+        table.add_row("22", "KEYCODE_DPAD_RIGHT")
+        table.add_row("23", "KEYCODE_DPAD_CENTER")
+        table.add_row("24", "KEYCODE_VOLUME_UP")
+        table.add_row("25", "KEYCODE_VOLUME_DOWN")
+        table.add_row("26", "KEYCODE_POWER")
+        table.add_row("27", "KEYCODE_CAMERA")
+        table.add_row("28", "KEYCODE_CLEAR")
+        table.add_row("29", "KEYCODE_A")
+        table.add_row("30", "KEYCODE_B")
+        table.add_row("31", "KEYCODE_C")
+        table.add_row("32", "KEYCODE_D")
+        table.add_row("33", "KEYCODE_E")
+        table.add_row("34", "KEYCODE_F")
+        table.add_row("35", "KEYCODE_G")
+        table.add_row("36", "KEYCODE_H")
+        table.add_row("37", "KEYCODE_I")
+        table.add_row("38", "KEYCODE_J")
+        table.add_row("39", "KEYCODE_K")
+        table.add_row("40", "KEYCODE_L")
+        table.add_row("41", "KEYCODE_M")
+        table.add_row("42", "KEYCODE_N")
+        table.add_row("43", "KEYCODE_O")
+        table.add_row("44", "KEYCODE_P")
+        table.add_row("45", "KEYCODE_Q")
+        table.add_row("46", "KEYCODE_R")
+        table.add_row("47", "KEYCODE_S")
+        table.add_row("48", "KEYCODE_T")
+        table.add_row("49", "KEYCODE_U")
+        table.add_row("50", "KEYCODE_V")
+        table.add_row("51", "KEYCODE_W")
+        table.add_row("52", "KEYCODE_X")
+        table.add_row("53", "KEYCODE_Y")
+        table.add_row("54", "KEYCODE_Z")
+        table.add_row("55", "KEYCODE_COMMA")
+        table.add_row("56", "KEYCODE_PERIOD")
+        table.add_row("57", "KEYCODE_ALT_LEFT")
+        table.add_row("58", "KEYCODE_ALT_RIGHT")
+        table.add_row("59", "KEYCODE_SHIFT_LEFT")
+        table.add_row("60", "KEYCODE_SHIFT_RIGHT")
+        table.add_row("61", "KEYCODE_TAB")
+        table.add_row("62", "KEYCODE_SPACE")
+        table.add_row("63", "KEYCODE_SYM")
+        table.add_row("64", "KEYCODE_EXPLORER")
+        table.add_row("65", "KEYCODE_ENVELOPE")
+        table.add_row("66", "KEYCODE_ENTER")
+        table.add_row("67", "KEYCODE_DEL")
+        table.add_row("68", "KEYCODE_GRAVE")
+        table.add_row("69", "KEYCODE_MINUS")
+        table.add_row("70", "KEYCODE_EQUALS")
+        table.add_row("71", "KEYCODE_LEFT_BRACKET")
+        table.add_row("72", "KEYCODE_RIGHT_BRACKET")
+        table.add_row("73", "KEYCODE_BACKSLASH")
+        table.add_row("74", "KEYCODE_SEMICOLON")
+        table.add_row("75", "KEYCODE_APOSTROPHE")
+        table.add_row("76", "KEYCODE_SLASH")
+        table.add_row("77", "KEYCODE_AT")
+        table.add_row("78", "KEYCODE_NUM")
+        table.add_row("79", "KEYCODE_HEADSETHOOK")
+        table.add_row("80", "KEYCODE_FOCUS")
+        table.add_row("81", "KEYCODE_PLUS")
+        table.add_row("82", "KEYCODE_MENU")
+        table.add_row("83", "KEYCODE_NOTIFICATION")
+        table.add_row("84", "KEYCODE_SEARCH")
+        table.add_row("85", "TAG_LAST_KEYCODE")
+        console = Console()
+        console.print(table)
 
     def open_browser(self, device, url):
         Utils.banner()
         d = adbutils.adb.device(device)
-        d.open_browser(url)
-        print(Fore.GREEN + 'The url is opening...')
+        if url != '':
+            d.open_browser(url)
+            print(Fore.GREEN + 'The url '+url+' is now opening...')
+        else:
+            print(Fore.RED + 'The URL can not be null...')
 
-    def remove(self):
+    def remove_password(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        print(Fore.RED + 'Trying to remove lockscreen password...')
+        d1 = d.shell("su 0 'rm /data/system/gesture.key'")
+        print(d1)
+        d2 = d.shell("su 0 'rm /data/system/locksettings.db'")
+        print(d2)
+        d3 = d.shell("su 0 'rm /data/system/locksettings.db-wal'")
+        print(d3)
+        d4 = d.shell("su 0 'rm /data/system/locksettings.db-shm'")
+        print(d4)
 
-    def rotation(self):
+    #TODO
+    def rotate(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        d.rotation()
 
-    def swipe(self):
+    #TODO
+    def swipe(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        d.swipe()
 
-    def switch_screen(self):
+    def screen(self, device, status):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        if status == 'on':
+            d.switch_screen(True)
+        elif status == 'off':
+            d.switch_screen(False)
+        else:
+            print(Fore.RED+"That option doesn't exists...")
 
-    def show_ip(self):
+    def unlock_screen(self, device, code):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        if d.is_screen_on() == False:
+            d.switch_screen(True)
+            d.swipe(200, 900, 200, 300, 0.5)
+            d.shell("input text " + str(code))
+            d.keyevent(66)
+            print(Fore.GREEN + "The screen is unlocked...")
+        else:
+            print(Fore.GREEN+"The screen is already unlocked...")
 
     def show_mac(self):
         Utils.banner()
@@ -255,6 +450,12 @@ class Cli(object):
 
     def screenshot(self):
         Utils.banner()
+
+    def get_notifications(self,device):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        print(d.shell("dumpsys notification | grep ticker | cut -d= -f2"))
+
 
     def version(self):
         """Show the version of the tool"""
