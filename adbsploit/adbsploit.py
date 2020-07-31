@@ -5,6 +5,7 @@ For usage instructions execute the following lines:
 >>> python adbsploit.py -help
 """
 import os
+import shutil
 import sys
 import time
 import adbutils
@@ -14,7 +15,7 @@ from rich.console import Console
 from rich.table import Table
 from colorama import Fore
 
-global_device = "device"
+
 
 
 class Utils:
@@ -26,6 +27,7 @@ class Utils:
 
 
 class Cli(object):
+    gdevice = 'serial'
 
     def devices(self):
         Utils.banner()
@@ -33,8 +35,9 @@ class Cli(object):
         table.add_column("Device detected", style="cyan")
         table.add_column("Model", style="magenta")
         table.add_column("Name", style="magenta")
+        table.add_column("Device", style="magenta")
         for d in adbutils.adb.device_list():
-            table.add_row(d.serial, d.prop.model, d.prop.name)
+            table.add_row(d.serial, d.prop.model, d.prop.name, d.prop.device)
         console = Console()
         console.print(table)
 
@@ -47,6 +50,7 @@ class Cli(object):
         Utils.banner()
         output = adbutils.adb.device(serial=device)
         print("Selected device: " + Fore.GREEN + output.serial)
+        Cli.gdevice = output.serial
 
     def list_forward(self, device='all'):
         Utils.banner()
@@ -286,7 +290,7 @@ class Cli(object):
     def keyevent(self, device, key):
         Utils.banner()
         d = adbutils.adb.device(device)
-        k = d.keyevent(key)
+        d.keyevent(key)
         print(Fore.GREEN+"They key event is processed correctly...")
 
     def show_keyevents(self):
@@ -405,17 +409,10 @@ class Cli(object):
         d4 = d.shell("su 0 'rm /data/system/locksettings.db-shm'")
         print(d4)
 
-    #TODO
-    def rotate(self, device):
+    def swipe(self, device, sx, sy, ex, ey, duration='0.5'):
         Utils.banner()
         d = adbutils.adb.device(device)
-        d.rotation()
-
-    #TODO
-    def swipe(self, device):
-        Utils.banner()
-        d = adbutils.adb.device(device)
-        d.swipe()
+        d.swipe(sx, sy, ex, ey, duration)
 
     def screen(self, device, status):
         Utils.banner()
@@ -427,7 +424,7 @@ class Cli(object):
         else:
             print(Fore.RED+"That option doesn't exists...")
 
-    def unlock_screen(self, device, code):
+    def unlock_screen(self, device, code=''):
         Utils.banner()
         d = adbutils.adb.device(device)
         if d.is_screen_on() == False:
@@ -439,23 +436,48 @@ class Cli(object):
         else:
             print(Fore.GREEN+"The screen is already unlocked...")
 
-    def show_mac(self):
+    def lock_screen(self, device):
         Utils.banner()
+        d = adbutils.adb.device(device)
+        d.keyevent(26)
+        print(Fore.GREEN + "The screen is now locked...")
+
+    def show_macaddress(self, device):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        print(Fore.GREEN+d.shell("cat /sys/class/net/wlan0/address"))
 
     def screenrecord(self):
         Utils.banner()
 
+    #TODO
     def stream_screen(self):
         Utils.banner()
 
-    def screenshot(self):
+    def screenshot(self, device, name='screenshot'):
         Utils.banner()
+        os.system("adb -s "+device+" exec-out screencap -p >"+name+".png")
+        print(Fore.GREEN+"An image is created with the name "+name+".png ...")
 
-    def get_notifications(self,device):
+    def dump_meminfo(self, device, app='all'):
         Utils.banner()
         d = adbutils.adb.device(device)
-        print(d.shell("dumpsys notification | grep ticker | cut -d= -f2"))
+        if app == 'all':
+            d.shell("dumpsys meminfo")
+        else:
+            d.shell("dumpsys meminfo "+app)
 
+    def process_list(self, device):
+        Utils.banner()
+        d = adbutils.adb.device(device)
+        print(d.shell("ps -ef"))
+
+    def tcpip(self, port):
+        Utils.banner()
+        if port == '':
+            print(Fore.RED+"You must specify a port to listen on your device...")
+        else:
+            os.system("adb tcpip "+port)
 
     def version(self):
         """Show the version of the tool"""
@@ -468,6 +490,6 @@ class Cli(object):
         console = Console()
         console.print(table)
 
-
 if __name__ == '__main__':
     fire.Fire(Cli)
+
