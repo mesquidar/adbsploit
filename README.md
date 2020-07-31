@@ -18,8 +18,8 @@ A python based tool for exploiting and managing Android devices via ADB
 
 List Devices
 ```
-adbsploit device
-
+adbsploit devic
+```
 
 Connect Devices
 
