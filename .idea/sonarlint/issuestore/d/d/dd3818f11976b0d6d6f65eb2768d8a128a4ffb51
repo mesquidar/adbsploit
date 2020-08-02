@@ -1,7 +1,10 @@
 
-ipython:S1192¸"IDefine a constant instead of duplicating this literal "The app " 4 times.(å¹ŒÇ8®ˆ° º.
-[python:S5754o"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
-\python:S5754"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
-[python:S5754x"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
-\python:S5754Š"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
-Epython:S1481¡"%Remove the unused local variable "k".(ÃÕûþ8—³Ô£º.
+mpython:S1192Å"HDefine a constant instead of duplicating this literal "adb -s " 4 times.(ÝÀ’°þÿÿÿÿ8“ñ±¬º.
+\python:S5754Œ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
+[python:S5754q"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
+›python:S1192È"vDefine a constant instead of duplicating this literal "You can install it from https://www.videolan.org/vlc/" 3 times.(¨ØÍ´ùÿÿÿÿ8Ö²¬º.
+ipython:S1192º"IDefine a constant instead of duplicating this literal "The app " 4 times.(å¹ŒÇ8®ˆ° º.
+\python:S5754ƒ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
+Îpython:S1192Å"¨Define a constant instead of duplicating this literal " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -" 3 times.(ÝÀ’°þÿÿÿÿ8Ö²¬º.
+[python:S5754z"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8þŒÃ„º.
+¢python:S1192Ç"}Define a constant instead of duplicating this literal "For streaming screen we need VLC installed on your system..." 3 times.(¢šôøÿÿÿÿ8Ö²¬º.
