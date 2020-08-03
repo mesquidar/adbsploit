@@ -17,14 +17,7 @@ menu = 'none'
 def main():
     command = input(Fore.WHITE + "adbsploit" + Fore.RED + "(" + device + ")" + Fore.WHITE + " > ")
     if command == 'help':
-        table = Table()
-        table.add_column("Command", style="cyan")
-        table.add_column("Description", style="magenta")
-        table.add_column("Command", style="cyan")
-        table.add_column("Description", style="magenta")
-        table.add_row('Device', 'List all devices', 'Select', 'Select the device to use')
-        console = Console()
-        console.print(table)
+        help()
         main()
     elif command == 'devices':
         devices()
@@ -116,7 +109,7 @@ def main():
     elif command == 'keyevent':
         keyevent()
         main()
-    elif command == 'show-keyevent':
+    elif command == 'show-keyevents':
         show_keyevents()
         main()
     elif command == 'open-browser':
@@ -503,8 +496,7 @@ def battery():
         try:
             d = adbutils.adb.device(device)
             bat = d.shell("dumpsys battery")
-            print(Fore.GREEN + "The battery for device " + device + " is:")
-            print(Fore.MAGENTA + bat)
+            print(Fore.GREEN + bat)
         except:
             print(arrow + ("[{0}+{1}] An error ocurred obtaining the battery info...").format(Fore.RED, Fore.WHITE))
     else:
@@ -974,7 +966,7 @@ def clear():
 
     f = Figlet(font='slant')
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + "[5 commands available]")
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
 
 
 def version():
@@ -987,12 +979,41 @@ def version():
     console = Console()
     console.print(table)
 
+def help():
+    table = Table()
+    table.add_column("Command", style="cyan")
+    table.add_column("Description", style="magenta")
+    table.add_column("Command", style="cyan")
+    table.add_column("Description", style="magenta")
+    table.add_row('devices', 'List all devices detected', 'select', 'Select the device to use')
+    table.add_row('connect', 'Connect to teh device', 'list-forward', 'List forward ports')
+    table.add_row('wifi', 'Manage the wifi of the device', 'start-app', 'Start an app')
+    table.add_row('stop-app', 'Stop an app', 'clear-app', 'Clear cache of the app')
+    table.add_row('airplane', 'Manage the airplane mode', 'dumpsys', 'Provide info about system services (Needs Root)')
+    table.add_row('list-apps', 'List all apps installed', 'wpa-supplicant', 'Export the wpa-supplicant file (Needs Root)')
+    table.add_row('install', 'Install an apk', 'install-remote', 'Install an app via URL')
+    table.add_row('uninstall', 'Uninstall an app', 'shell', 'Open a shell on the device')
+    table.add_row('shutdown', 'Shutdown the device', 'reboot', 'Reboot the device')
+    table.add_row('logs', 'List the logs of the device', 'show-ip', 'Show the ip of the device')
+    table.add_row('appinfo', 'Obtain info of the package', 'battery', 'Show battery info')
+    table.add_row('netstat', 'Show the netstat of the device', 'sound', 'Control teh sound of the device')
+    table.add_row('check-screen', 'Check the status of the screen', 'dump-hierarchy', 'Dump the hierarchy info')
+    table.add_row('keyevent', 'Send a keyevent to the device', 'show-keyevents', 'Show the keyevents')
+    table.add_row('open-browser', 'Open a URL in teh device', 'remove-password', 'Remove the lock screen password (Needs Root))')
+    table.add_row('swipe', 'Swipe the screen', 'screen', 'Change the screen status ON/OFF')
+    table.add_row('unlock-screen', 'Unlock the screen of the device', 'lock-screen', 'Lock the screen of the device')
+    table.add_row('show-mac', 'Show teh mac address of the device', 'dump-meminfo', 'Dump de memory info of the device')
+    table.add_row('process-list', 'List all the device process', 'tcpip', 'Change the device to tcp')
+    table.add_row('clear', 'Clear the screen of adbsploit', 'version', 'Show the version of adbsploit')
+    table.add_row('exit', 'Exit adbsploit', '', '')
+    console = Console()
+    console.print(table)
 
 # Run
 try:
     f = Figlet(font='slant')
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + "[5 commands available]")
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
     main()
 except KeyboardInterrupt:
     main()
