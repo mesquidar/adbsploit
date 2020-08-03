@@ -14,8 +14,13 @@ A python based tool for exploiting and managing Android devices via ADB
 - Install Backdoor
 - And more...
 
-# Functionalities
+## Installation
 
+## Usage
+
+
+# Functionalities
+## v0.1
 - List Devices
 - Connect Devices
 - TCPIP
