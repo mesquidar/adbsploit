@@ -1,6 +1,7 @@
 import os
 import shutil
 import sys
+import random
 
 import adbutils
 from colorama import Fore
@@ -144,6 +145,21 @@ def main():
         main()
     elif command == 'tcpip':
         tcpip()
+        main()
+    elif command == 'current-app':
+        current_app()
+        main()
+    elif command == 'extract-contacts':
+        extract_contacts()
+        main()
+    elif command == 'extract-sms':
+        extract_sms()
+        main()
+    elif command == 'delete-sms':
+        delete_sms()
+        main()
+    elif command == 'send-sms':
+        send_sms()
         main()
     elif command == 'clear':
         clear()
@@ -901,17 +917,77 @@ def tcpip():
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
+#TODO
+def extract_contacts():
+    global device
+    if device != 'none':
+        try:
+            print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
+            d = adbutils.adb.device(device)
+            output = d.shell("content query --uri content://contacts/phones/  --projection display_name:number:notes ")
+            print(output)
+            d.shell("content query --uri content://contacts/phones/  --projection display_name:number:notes ")
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred extracting the contacts...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
-def keycode(self):
-    print()
+def extract_sms():
+    global device
+    if device != 'none':
+        try:
+            print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
+            d = adbutils.adb.device(device)
+            output = d.shell("content query --uri content://sms/ --projection address:date:body")
+            print(output)
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred extracting sms...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
+def delete_sms():
+    global device
+    if device != 'none':
+        try:
+            print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
+            d = adbutils.adb.device(device)
+            print(arrow + ("[{0}+{1}] Specify row id").format(Fore.RED, Fore.WHITE))
+            row = input(arrow + " adbsploit" + Fore.RED + "(delete-sms) " + Fore.WHITE + "> ")
+            d.shell("content delete --uri content://sms/ --where"+'"row='+"'"+row+"'"+'"')
+            print('SMS Deleted')
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred deleting the sms...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
-def current_app(self):
-    print()
+def send_sms():
+    global device
+    if device != 'none':
+        try:
+            print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
+            d = adbutils.adb.device(device)
+            print(arrow + ("[{0}+{1}] Specify the phone number (+34600112233)").format(Fore.RED, Fore.WHITE))
+            number = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
+            print(arrow + ("[{0}+{1}] Specify the sms message").format(Fore.RED, Fore.WHITE))
+            message = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
+            d.shell("service call isms 5 s16 "+number+ " i32 0 i32 0 s16 "+'"'+message+'"')
+            print('SMS Sent')
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred sending the sms...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
-
-def send_key(self):
-    print()
+#TODO
+def current_app():
+    global device
+    if device != 'none':
+        try:
+            d = adbutils.adb.device(device)
+            print(arrow+Fore.GREEN+d.current_app())
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred getting the current app...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
 
 def extract_app():
@@ -966,7 +1042,7 @@ def clear():
 
     f = Figlet(font='slant')
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"Type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
 
 
 def version():
@@ -1004,6 +1080,9 @@ def help():
     table.add_row('unlock-screen', 'Unlock the screen of the device', 'lock-screen', 'Lock the screen of the device')
     table.add_row('show-mac', 'Show teh mac address of the device', 'dump-meminfo', 'Dump de memory info of the device')
     table.add_row('process-list', 'List all the device process', 'tcpip', 'Change the device to tcp')
+    table.add_row('extract-app', 'Extract teh apk of an installed app', 'extract-contacts', 'Show he contacts in the device')
+    table.add_row('extract-sms', 'Extract sms saved in the phone', 'delete-sms', 'Delete the sms specified')
+    table.add_row('send-sms', 'Send sms to the specified phone', '', '')
     table.add_row('clear', 'Clear the screen of adbsploit', 'version', 'Show the version of adbsploit')
     table.add_row('exit', 'Exit adbsploit', '', '')
     console = Console()
@@ -1011,9 +1090,13 @@ def help():
 
 # Run
 try:
-    f = Figlet(font='slant')
+    f = Figlet()
+    list = f.getFonts()
+    sel = random.choice(list)
+    print(sel)
+    f.setFont(font=sel)
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"Type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
     main()
 except KeyboardInterrupt:
     main()
