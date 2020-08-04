@@ -14,55 +14,37 @@ A python based tool for exploiting and managing Android devices via ADB
 - Install Backdoor
 - And more...
 
+## Installation
+
+## Usage
+
+
 # Functionalities
-
-List Devices
-
-Connect Devices
-
-TCPIP
-
-Forward Ports
-
-Airplane Managment
-
-Wifi Managment
-
-Sound Control
-
-List/Info Apps
-
-WPA Supplicant Extraction
-
-Install/Uninstall Apps
-
-Shutdown/Reboot
-
-Logs
-
-Start/Stop/Clear Apps
-
-Show Inet/MAC
-
-Battery Status
-
-Netstat
-
-Check/Unlock/Lock Screen
-
-Turn On/Off Screen
-
-Swipe Screen
-
-Screencapture
-
-Send Keyevent
-
-Open Browser URL
-
-Process List
-
-Dump Meminfo/Hierarchy
+## v0.1
+- List Devices
+- Connect Devices
+- TCPIP
+- Forward Ports
+- Airplane Managment
+- Wifi Managment
+- Sound Control
+- List/Info Apps
+- WPA Supplicant Extraction
+- Install/Uninstall Apps
+- Shutdown/Reboot
+- Logs
+- Start/Stop/Clear Apps
+- Show Inet/MAC
+- Battery Status
+- Netstat
+- Check/Unlock/Lock Screen
+- Turn On/Off Screen
+- Swipe Screen
+- Screencapture
+- Send Keyevent
+- Open Browser URL
+- Process List
+- Dump Meminfo/Hierarchy
 
 
 
