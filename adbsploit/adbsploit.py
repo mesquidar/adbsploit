@@ -17,6 +17,11 @@ device = 'none'
 
 
 def main():
+    f = Figlet()
+    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard","standard", "starwars", "stop"]
+    f.setFont(font=random.choice(list))
+    print(f.renderText('>_adbsploit'))
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
     command = input(Fore.WHITE + "adbsploit" + Fore.RED + "(" + device + ")" + Fore.WHITE + " > ")
     if command == 'help':
         help()
@@ -161,6 +166,9 @@ def main():
         main()
     elif command == 'send-sms':
         send_sms()
+        main()
+    elif command == 'extract-app':
+        extract_app()
         main()
     elif command == 'clear':
         clear()
@@ -994,7 +1002,8 @@ def current_app():
 
 
 def extract_app():
-    app = 'jdbvj'
+    global device
+    app = 'com.whatsapp'
     d = adbutils.adb.device(device)
     path = d.shell("pm path " + app)
     d.shell("pull " + path[8:])
@@ -1043,9 +1052,11 @@ def clear():
     elif sys.platform.startswith('darwin'):
         os.system('clear')
 
-    f = Figlet(font='slant')
+    f = Figlet()
+    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard","standard", "starwars", "stop"]
+    f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"Type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
 
 
 def version():
@@ -1094,11 +1105,6 @@ def help():
 # **************************************************************************************
 # Run script
 try:
-    f = Figlet()
-    list =["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard", "standard", "starwars", "stop" ]
-    f.setFont(font=random.choice(list))
-    print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE+"Type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
     main()
 except KeyboardInterrupt:
     main()
