@@ -9,10 +9,11 @@ from pyfiglet import Figlet
 from rich.console import Console
 from rich.table import Table
 
+#***********************************************************************
+# Variables and main
 arrow = Fore.RED + " └──>" + Fore.WHITE
 connect = Fore.RED + "│" + Fore.WHITE
 device = 'none'
-menu = 'none'
 
 
 def main():
@@ -173,6 +174,8 @@ def main():
         print(arrow + Fore.RED + " That command doesn't exists...")
         main()
 
+# *******************************************************************************
+# Functions
 
 def devices():
     '''devices'''
@@ -970,8 +973,8 @@ def send_sms():
             number = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify the sms message").format(Fore.RED, Fore.WHITE))
             message = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
-            d.shell("service call isms 5 s16 "+number+ " i32 0 i32 0 s16 "+'"'+message+'"')
-            print('SMS Sent')
+            d.shell("service call isms 7 i32 0 s16 "+ "com.android.mms.service "+ "s16 "+ '"'+number+'"'+ " s16 "+ '"null"'+ " s16 "+ '"'+message+'"'+ ' s16 "null" s16 "null"')
+            print(arrow+Fore.GREEN+'SMS Sent correctly...')
         except:
             print(arrow + ("[{0}+{1}] An error ocurred sending the sms...").format(Fore.RED, Fore.WHITE))
     else:
@@ -1088,13 +1091,12 @@ def help():
     console = Console()
     console.print(table)
 
-# Run
+# **************************************************************************************
+# Run script
 try:
     f = Figlet()
-    list = f.getFonts()
-    sel = random.choice(list)
-    print(sel)
-    f.setFont(font=sel)
+    list =["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard", "standard", "starwars", "stop" ]
+    f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
     print("v0.1" + "\t \t \t \t" + Fore.WHITE+"Type"+ Fore.RED+" help " + Fore.WHITE+"for more info")
     main()

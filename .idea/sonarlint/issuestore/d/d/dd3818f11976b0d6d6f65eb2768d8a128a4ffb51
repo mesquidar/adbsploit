@@ -1,51 +1,56 @@
 
-\python:S5754Ï"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8À·–üº.
-hpython:S1192Ø"HDefine a constant instead of duplicating this literal "adb -s " 6 times.(æøªÇ8Ü¿ÿýº.
-\python:S5754½"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Í»öñº.
-Îpython:S1192ª"¨Define a constant instead of duplicating this literal " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -" 3 times.(Žãïòÿÿÿÿÿ8Ü¿ÿýº.
-\python:S5754±"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ô¾þûº.
-\python:S5754ê"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8íø‰þº.
-\python:S5754š"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8õ•¼üº.
-\python:S5754ê"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8¡¹¥üº.
-Žpython:S1192æ"nDefine a constant instead of duplicating this literal "[{0}+{1}] You must select a device before..." 38 times.(¾©Âý8€±Üôº.
-špython:S1192¦"zDefine a constant instead of duplicating this literal "[{0}+{1}] Specify the name of the app (ex: com.whatsapp) " 5 times.(µ’é½8À·–üº.
-\python:S5754Í"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Í»öñº.
-\python:S5754Ù"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8òšÁûº.
-\python:S5754æ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ëÉåûº.
-¢python:S1192¬"}Define a constant instead of duplicating this literal "For streaming screen we need VLC installed on your system..." 3 times.(¢šôøÿÿÿÿ8Ü¿ÿýº.
-\python:S5754¼"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Ü¿ÿýº.
-Ppython:S5806§"+Rename this variable; it shadows a builtin.(ó¹Äòüÿÿÿÿ8íÍÊüº.
-Ppython:S5806©"+Rename this variable; it shadows a builtin.(âˆûÿÿÿÿ8ê½Ôüº.
-\python:S5754‹"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ëÉåûº.
-\python:S5754…"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ý“¶üº.
-\python:S5754Ð"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Å—àüº.
-\python:S5754Û"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8‰«ýº.
-\python:S5754ž"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Í»öñº.
-rpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 48 to the 15 allowed.(œŸ²_8¶¦Å€».
-\python:S5754ë"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8º…òüº.
-\python:S5754†"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8öÈšþº.
-\python:S5754²"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8£Ùèýº.
-\python:S5754÷"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8³«²üº.
-ypython:S3776£"TRefactor this function to reduce its Cognitive Complexity from 20 to the 15 allowed.(ˆºØæùÿÿÿÿ8Ü¿ÿýº.
-\python:S5754Â"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Û¬óº.
-\python:S5754Ü"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8˜Ù›üº.
-\python:S5754Ë"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8×¤øýº.
-\python:S5754¿"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8­Šñýº.
-\python:S5754›"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ÑÝÄýº.
-npython:S1192ú"IDefine a constant instead of duplicating this literal "(swipe) " 5 times.(ýóÊïþÿÿÿÿ8·ÆÑýº.
-lpython:S930q"IAdd 1 missing arguments; 'show_keyevents' expects 1 positional arguments.(Š¨ŒÆûÿÿÿÿ8¶¦Å€».
-\python:S5754ó"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ëÉåûº.
-\python:S5754œ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8¼‰ïûº.
-\python:S5754Ù"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8†¯‚þº.
-\python:S5754ý"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ëÉåûº.
-\python:S5754À"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8©™“üº.
-\python:S5754ï"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8›§°ýº.
-\python:S5754À"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8â¬Èüº.
-›python:S1192­"vDefine a constant instead of duplicating this literal "You can install it from https://www.videolan.org/vlc/" 3 times.(¨ØÍ´ùÿÿÿÿ8Ü¿ÿýº.
-\python:S5754’"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Æüî¨».
-lpython:S1192³"LDefine a constant instead of duplicating this literal " adbsploit" 31 times.(‡Ôˆë8°í…óº.
-\python:S5754Ü"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Æ¨îüº.
-\python:S5754†"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Ê„¸ýº.
-\python:S5754ö"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8ƒá“þº.
-\python:S5754­"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8Í»öñº.
-ipython:S1192­"IDefine a constant instead of duplicating this literal "The app " 4 times.(å¹ŒÇ8Í»öñº.
+\python:S5754“"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754è"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754¢"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Í"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+›python:S1192ö"vDefine a constant instead of duplicating this literal "You can install it from https://www.videolan.org/vlc/" 3 times.(¨ØÍ´ùÿÿÿÿ8°ï­Ç».
+\python:S5754¯"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+Ppython:S5806´"+Rename this variable; it shadows a builtin.(ó¹Äòüÿÿÿÿ8°ï­Ç».
+\python:S5754ü"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+‡python:S1192"gDefine a constant instead of duplicating this literal "[{0}+{1}] This option is still in BETA" 4 times.(ÔòØú8íŠÆÇ».
+\python:S5754ó"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+¢python:S1192õ"}Define a constant instead of duplicating this literal "For streaming screen we need VLC installed on your system..." 3 times.(¢šôøÿÿÿÿ8°ï­Ç».
+ipython:S1192º"IDefine a constant instead of duplicating this literal "The app " 4 times.(å¹ŒÇ8°ï­Ç».
+\python:S5754Ê"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+špython:S1192³"zDefine a constant instead of duplicating this literal "[{0}+{1}] Specify the name of the app (ex: com.whatsapp) " 5 times.(µ’é½8°ï­Ç».
+\python:S5754“"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754¾"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+ypython:S3776ì"TRefactor this function to reduce its Cognitive Complexity from 20 to the 15 allowed.(ˆºØæùÿÿÿÿ8°ï­Ç».
+lpython:S930r"IAdd 1 missing arguments; 'show_keyevents' expects 1 positional arguments.(Š¨ŒÆûÿÿÿÿ8°ï­Ç».
+\python:S5754«"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754„"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Í"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Ï"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8äÌÇ».
+rpython:S3776"TRefactor this function to reduce its Cognitive Complexity from 52 to the 15 allowed.(œŸ²_8°ï­Ç».
+\python:S5754ƒ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+Îpython:S1192ó"¨Define a constant instead of duplicating this literal " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -" 3 times.(Žãïòÿÿÿÿÿ8°ï­Ç».
+\python:S5754€"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+lpython:S1192À"LDefine a constant instead of duplicating this literal " adbsploit" 34 times.(‡Ôˆë8°ï­Ç».
+\python:S5754Ý"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754÷"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754¾"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754ø"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Ú"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Ü"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754˜"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754÷"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+Ppython:S5806¶"+Rename this variable; it shadows a builtin.(âˆûÿÿÿÿ8°ï­Ç».
+\python:S5754æ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754¿"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754§"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+npython:S1192‡"IDefine a constant instead of duplicating this literal "(swipe) " 5 times.(ýóÊïþÿÿÿÿ8°ï­Ç».
+\python:S5754Ï"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754é"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Ì"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Ø"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754æ"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754©"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754…"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754é"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+Žpython:S1192ó"nDefine a constant instead of duplicating this literal "[{0}+{1}] You must select a device before..." 42 times.(¾©Âý8°ï­Ç».
+\python:S5754º"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Š"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754Û"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+\python:S5754’"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
+hpython:S1192å"HDefine a constant instead of duplicating this literal "adb -s " 6 times.(æøªÇ8°ï­Ç».
+\python:S5754¨"<Specify an exception class to catch or reraise the exception(ˆÊÉ·8°ï­Ç».
