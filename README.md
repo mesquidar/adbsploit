@@ -15,11 +15,40 @@ A python based tool for exploiting and managing Android devices via ADB
 - And more...
 
 ## Installation
+```
+# First Download or clone repo
+git clone https://github.com/mesquidar/adbsploit.git
+# Move to the directory
+cd adbsploit
+# Install it
+python setup.py install
+# Excute 
+adbsploit
+# Enjoy!!
+```
+
+### Requirements 
+- Python 3.X
 
 ## Usage
-
+- Execute the commad: devices
+- Then select the device  with: select
+- You can connect to device using the command: connect
+- Type help for more information
 
 # Functionalities
+## v0.2
+
+### Added:
+- Fixed setup and installation
+- Extract Contacts
+- Extract SMS
+- Send SMS
+- Recovery Mode
+- Fastboot Mode
+- Device Info
+- Kill Process
+
 ## v0.1
 - List Devices
 - Connect Devices

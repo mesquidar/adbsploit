@@ -12,17 +12,10 @@ from rich.table import Table
 # ***********************************************************************
 # Variables and main
 arrow = Fore.RED + " └──>" + Fore.WHITE
-connect = Fore.RED + "│" + Fore.WHITE
 device = 'none'
 
 
 def main():
-    f = Figlet()
-    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard",
-            "standard", "starwars", "stop"]
-    f.setFont(font=random.choice(list))
-    print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
     command = input(Fore.WHITE + "adbsploit" + Fore.RED + "(" + device + ")" + Fore.WHITE + " > ")
     if command == 'help':
         help()
@@ -170,6 +163,18 @@ def main():
         main()
     elif command == 'extract-app':
         extract_app()
+        main()
+    elif command == 'recovery-mode':
+        recovery_mode()
+        main()
+    elif command == 'device-info':
+        device_info()
+        main()
+    elif command == 'fastboot-mode':
+        fastboot_mode()
+        main()
+    elif command == 'kill-process':
+        kill_process()
         main()
     elif command == 'clear':
         clear()
@@ -953,14 +958,14 @@ def extract_sms():
         try:
             print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
             d = adbutils.adb.device(device)
-            output = d.shell("content query --uri content://sms/ --projection address:date:body")
+            output = d.shell("content query --uri content://sms/ --projection _id:address:date:body")
             print(output)
         except:
             print(arrow + ("[{0}+{1}] An error ocurred extracting sms...").format(Fore.RED, Fore.WHITE))
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
-
+#todo
 def delete_sms():
     global device
     if device != 'none':
@@ -1008,6 +1013,57 @@ def current_app():
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
+def device_info():
+    global device
+    if device != 'none':
+        try:
+            d = adbutils.adb.device(device)
+            print(arrow + "Product Model: "+ Fore.GREEN + d.shell("getprop ro.product.model"))
+            print(arrow + "Android Version: " + Fore.GREEN + d.shell("getprop ro.build.version.release"))
+            print(arrow + "Android Id: " + Fore.GREEN + d.shell("settings get secure android_id"))
+            print(arrow + "IMEI: " + Fore.GREEN + d.shell("service call iphonesubinfo 1"))
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred getting the current app...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
+
+def recovery_mode():
+    global device
+    if device != 'none':
+        try:
+            d = adbutils.adb.device(device)
+            d.shell("reboot recovery")
+            print(arrow+Fore.GREEN+"Entering in recovery mode...")
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred entering in recovery mode...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
+
+def fastboot_mode():
+    global device
+    if device != 'none':
+        try:
+            d = adbutils.adb.device(device)
+            d.shell("reboot bootloader")
+            print(arrow+Fore.GREEN+"Entering in fastboot mode...")
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred entering in fastboot mode...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
+
+def kill_process():
+    global device
+    if device != 'none':
+        try:
+            d = adbutils.adb.device(device)
+            print(arrow + ("[{0}+{1}] Specify the PID").format(Fore.RED, Fore.WHITE))
+            pid = input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
+            d.shell("taskkill /PID "+ pid)
+            print(arrow+Fore.GREEN+"Killing the process...")
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred killing the process...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
 def extract_app():
     global device
@@ -1107,9 +1163,11 @@ def help():
     table.add_row('show-mac', 'Show teh mac address of the device', 'dump-meminfo', 'Dump de memory info of the device')
     table.add_row('process-list', 'List all the device process', 'tcpip', 'Change the device to tcp')
     table.add_row('extract-app', 'Extract teh apk of an installed app', 'extract-contacts',
-                  'Show he contacts in the device')
+                  'Show the contacts saved in the device')
     table.add_row('extract-sms', 'Extract sms saved in the phone', 'delete-sms', 'Delete the sms specified')
-    table.add_row('send-sms', 'Send sms to the specified phone', '', '')
+    table.add_row('send-sms', 'Send sms to the specified phone', 'recovery-mode', 'Enter the device in recovery mode')
+    table.add_row('fastboot-mode', 'Enter in fastboot mode', 'device-info', 'Get device info (IMEI, Android Id,...)')
+    table.add_row('kill-process', 'Kill the process on the device', '', '')
     table.add_row('clear', 'Clear the screen of adbsploit', 'version', 'Show the version of adbsploit')
     table.add_row('exit', 'Exit adbsploit', '', '')
     console = Console()
@@ -1119,4 +1177,10 @@ def help():
 # **************************************************************************************
 # Run script
 if __name__ == '__main__':
+    f = Figlet()
+    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard",
+            "standard", "starwars", "stop"]
+    f.setFont(font=random.choice(list))
+    print(f.renderText('>_adbsploit'))
+    print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
     main()
