@@ -9,7 +9,7 @@ from pyfiglet import Figlet
 from rich.console import Console
 from rich.table import Table
 
-#***********************************************************************
+# ***********************************************************************
 # Variables and main
 arrow = Fore.RED + " └──>" + Fore.WHITE
 connect = Fore.RED + "│" + Fore.WHITE
@@ -18,7 +18,8 @@ device = 'none'
 
 def main():
     f = Figlet()
-    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard","standard", "starwars", "stop"]
+    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard",
+            "standard", "starwars", "stop"]
     f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
     print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
@@ -181,6 +182,7 @@ def main():
     else:
         print(arrow + Fore.RED + " That command doesn't exists...")
         main()
+
 
 # *******************************************************************************
 # Functions
@@ -928,7 +930,8 @@ def tcpip():
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
-#TODO
+
+# TODO
 def extract_contacts():
     global device
     if device != 'none':
@@ -943,6 +946,7 @@ def extract_contacts():
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
+
 def extract_sms():
     global device
     if device != 'none':
@@ -956,6 +960,7 @@ def extract_sms():
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
+
 def delete_sms():
     global device
     if device != 'none':
@@ -964,12 +969,13 @@ def delete_sms():
             d = adbutils.adb.device(device)
             print(arrow + ("[{0}+{1}] Specify row id").format(Fore.RED, Fore.WHITE))
             row = input(arrow + " adbsploit" + Fore.RED + "(delete-sms) " + Fore.WHITE + "> ")
-            d.shell("content delete --uri content://sms/ --where"+'"row='+"'"+row+"'"+'"')
+            d.shell("content delete --uri content://sms/ --where" + '"row=' + "'" + row + "'" + '"')
             print('SMS Deleted')
         except:
             print(arrow + ("[{0}+{1}] An error ocurred deleting the sms...").format(Fore.RED, Fore.WHITE))
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
+
 
 def send_sms():
     global device
@@ -981,20 +987,22 @@ def send_sms():
             number = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify the sms message").format(Fore.RED, Fore.WHITE))
             message = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
-            d.shell("service call isms 7 i32 0 s16 "+ "com.android.mms.service "+ "s16 "+ '"'+number+'"'+ " s16 "+ '"null"'+ " s16 "+ '"'+message+'"'+ ' s16 "null" s16 "null"')
-            print(arrow+Fore.GREEN+'SMS Sent correctly...')
+            d.shell(
+                "service call isms 7 i32 0 s16 " + "com.android.mms.service " + "s16 " + '"' + number + '"' + " s16 " + '"null"' + " s16 " + '"' + message + '"' + ' s16 "null" s16 "null"')
+            print(arrow + Fore.GREEN + 'SMS Sent correctly...')
         except:
             print(arrow + ("[{0}+{1}] An error ocurred sending the sms...").format(Fore.RED, Fore.WHITE))
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
-#TODO
+
+# TODO
 def current_app():
     global device
     if device != 'none':
         try:
             d = adbutils.adb.device(device)
-            print(arrow+Fore.GREEN+d.current_app())
+            print(arrow + Fore.GREEN + d.current_app())
         except:
             print(arrow + ("[{0}+{1}] An error ocurred getting the current app...").format(Fore.RED, Fore.WHITE))
     else:
@@ -1053,7 +1061,8 @@ def clear():
         os.system('clear')
 
     f = Figlet()
-    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard","standard", "starwars", "stop"]
+    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard",
+            "standard", "starwars", "stop"]
     f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
     print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
@@ -1069,6 +1078,7 @@ def version():
     console = Console()
     console.print(table)
 
+
 def help():
     table = Table()
     table.add_column("Command", style="cyan")
@@ -1080,7 +1090,8 @@ def help():
     table.add_row('wifi', 'Manage the wifi of the device', 'start-app', 'Start an app')
     table.add_row('stop-app', 'Stop an app', 'clear-app', 'Clear cache of the app')
     table.add_row('airplane', 'Manage the airplane mode', 'dumpsys', 'Provide info about system services (Needs Root)')
-    table.add_row('list-apps', 'List all apps installed', 'wpa-supplicant', 'Export the wpa-supplicant file (Needs Root)')
+    table.add_row('list-apps', 'List all apps installed', 'wpa-supplicant',
+                  'Export the wpa-supplicant file (Needs Root)')
     table.add_row('install', 'Install an apk', 'install-remote', 'Install an app via URL')
     table.add_row('uninstall', 'Uninstall an app', 'shell', 'Open a shell on the device')
     table.add_row('shutdown', 'Shutdown the device', 'reboot', 'Reboot the device')
@@ -1089,12 +1100,14 @@ def help():
     table.add_row('netstat', 'Show the netstat of the device', 'sound', 'Control teh sound of the device')
     table.add_row('check-screen', 'Check the status of the screen', 'dump-hierarchy', 'Dump the hierarchy info')
     table.add_row('keyevent', 'Send a keyevent to the device', 'show-keyevents', 'Show the keyevents')
-    table.add_row('open-browser', 'Open a URL in teh device', 'remove-password', 'Remove the lock screen password (Needs Root))')
+    table.add_row('open-browser', 'Open a URL in teh device', 'remove-password',
+                  'Remove the lock screen password (Needs Root))')
     table.add_row('swipe', 'Swipe the screen', 'screen', 'Change the screen status ON/OFF')
     table.add_row('unlock-screen', 'Unlock the screen of the device', 'lock-screen', 'Lock the screen of the device')
     table.add_row('show-mac', 'Show teh mac address of the device', 'dump-meminfo', 'Dump de memory info of the device')
     table.add_row('process-list', 'List all the device process', 'tcpip', 'Change the device to tcp')
-    table.add_row('extract-app', 'Extract teh apk of an installed app', 'extract-contacts', 'Show he contacts in the device')
+    table.add_row('extract-app', 'Extract teh apk of an installed app', 'extract-contacts',
+                  'Show he contacts in the device')
     table.add_row('extract-sms', 'Extract sms saved in the phone', 'delete-sms', 'Delete the sms specified')
     table.add_row('send-sms', 'Send sms to the specified phone', '', '')
     table.add_row('clear', 'Clear the screen of adbsploit', 'version', 'Show the version of adbsploit')
@@ -1102,9 +1115,8 @@ def help():
     console = Console()
     console.print(table)
 
+
 # **************************************************************************************
 # Run script
-try:
-    main()
-except KeyboardInterrupt:
+if __name__ == '__main__':
     main()
