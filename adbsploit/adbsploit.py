@@ -1,5 +1,6 @@
 import os
 import shutil
+import subprocess
 import sys
 import random
 
@@ -175,6 +176,15 @@ def main():
         main()
     elif command == 'kill-process':
         kill_process()
+        main()
+    elif command == 'screenrecord':
+        screenrecord()
+        main()
+    elif command == 'remote-control':
+        remote_control()
+        main()
+    elif command == 'backdoor':
+        backdoor()
         main()
     elif command == 'clear':
         clear()
@@ -1072,38 +1082,234 @@ def extract_app():
     path = d.shell("pm path " + app)
     d.shell("pull " + path[8:])
 
-
 def screenrecord():
-    print()
+    global device
+    if device != 'none':
+        print(arrow + ("[{0}+{1}] Introduce the path and file name: (/home/user/Desktop/record.mp4)").format(Fore.RED, Fore.WHITE))
+        ans = input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
+        try:
+            if sys.platform.startswith('win32'):
+                if shutil.which("scrcpy") is not None:
+                    if ans == "":
+                        subprocess.Popen(['scrcpy -r record.mp4 -s ' + device],
+                                         shell=True,
+                                         stdin=subprocess.PIPE,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, )
+                    else:
+                        subprocess.Popen(['scrcpy -r ' + ans + ' -s ' + device],
+                                         shell=True,
+                                         stdin=subprocess.PIPE,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, )
+
+                else:
+                    print(arrow + ("[{0}+{1}] ADBSploit use scrcpy to remote control").format(Fore.RED, Fore.WHITE))
+                    print(arrow + (
+                        "[{0}+{1}] You must install it from https://github.com/Genymobile/scrcpy/releases").format(
+                        Fore.RED, Fore.WHITE))
+
+            elif sys.platform.startswith('linux'):
+                if shutil.which("scrcpy") is not None:
+                    if ans == "":
+                        subprocess.Popen(['scrcpy -r record.mp4 -s ' + device],
+                                         shell=True,
+                                         stdin=subprocess.PIPE,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, )
+                    else:
+                        subprocess.Popen(['scrcpy -r ' + ans + ' -s ' + device],
+                                         shell=True,
+                                         stdin=subprocess.PIPE,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, )
+                else:
+                    print(arrow + (
+                        "[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(
+                        Fore.RED, Fore.WHITE))
+                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    if ans == "y" or ans == "Y":
+                        subprocess.Popen('sudo apt-get install scrcpy', shell=True)
+                    elif ans == "n" or ans == "N":
+                        print(arrow + (
+                            "[{0}+{1}] Continue with ADBSploit...").format(
+                            Fore.RED, Fore.WHITE))
+                    else:
+                        print(arrow + (
+                            "[{0}+{1}] The option is incorrect please try again").format(
+                            Fore.RED, Fore.WHITE))
+            elif sys.platform.startswith('darwin'):
+                if shutil.which("scrcpy") is not None:
+                    if ans == "":
+                        subprocess.Popen(['scrcpy -r record.mp4 -s ' + device],
+                                         shell=True,
+                                         stdin=subprocess.PIPE,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, )
+                    else:
+                        subprocess.Popen(['scrcpy -r ' + ans + ' -s ' + device],
+                                         shell=True,
+                                         stdin=subprocess.PIPE,
+                                         stdout=subprocess.PIPE,
+                                         stderr=subprocess.STDOUT, )
+                else:
+                    print(arrow + (
+                        "[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(
+                        Fore.RED, Fore.WHITE))
+                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    if ans == "y" or ans == "Y":
+                        subprocess.call(
+                            '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"',
+                            shell=True)
+                        subprocess.call('brew install scrcpy', shell=True)
+                    elif ans == "n" or ans == "N":
+                        print(arrow + (
+                            "[{0}+{1}] Continue with ADBSploit...").format(
+                            Fore.RED, Fore.WHITE))
+                    else:
+                        print(arrow + (
+                            "[{0}+{1}] The option is incorrect please try again").format(
+                            Fore.RED, Fore.WHITE))
+            else:
+                print(arrow + ("[{0}+{1}] An error ocurred streaming the screen...").format(Fore.RED, Fore.WHITE))
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred streaming the screen...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
 
-def stream_screen():
+def remote_control():
     global device
     if device != 'none':
         try:
             if sys.platform.startswith('win32'):
-                if shutil.which('vlc') is not None:
-                    os.system(
-                        "adb -s " + device + " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -")
+                if shutil.which("scrcpy") is not None:
+                    subprocess.Popen(['scrcpy -s ' + device],
+                                            shell=True,
+                                            stdin=subprocess.PIPE,
+                                            stdout=subprocess.PIPE,
+                                            stderr=subprocess.STDOUT,)
                 else:
-                    print(Fore.RED + "For streaming screen we need VLC installed on your system...")
-                    print(Fore.RED + "You can install it from https://www.videolan.org/vlc/")
+                    print(arrow + ("[{0}+{1}] ADBSploit use scrcpy to remote control").format(Fore.RED, Fore.WHITE))
+                    print(arrow + ("[{0}+{1}] You must install it from https://github.com/Genymobile/scrcpy/releases").format(Fore.RED, Fore.WHITE))
+
             elif sys.platform.startswith('linux'):
-                if shutil.which('vlc') is not None:
-                    os.system(
-                        "adb -s " + device + " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -")
+                if shutil.which("scrcpy") is not None:
+                    subprocess.Popen(['scrcpy -s ' + device],
+                                            shell=True,
+                                            stdin=subprocess.PIPE,
+                                            stdout=subprocess.PIPE,
+                                            stderr=subprocess.STDOUT,)
                 else:
-                    print(Fore.RED + "For streaming screen we need VLC installed on your system...")
-                    print(Fore.RED + "You can install it from https://www.videolan.org/vlc/")
+                    print(arrow + ("[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(Fore.RED, Fore.WHITE))
+                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    if ans == "y" or ans == "Y":
+                        subprocess.Popen('sudo apt-get install scrcpy',shell=True)
+                    elif ans == "n" or ans == "N":
+                        print(arrow + (
+                            "[{0}+{1}] Continue with ADBSploit...").format(
+                            Fore.RED, Fore.WHITE))
+                    else:
+                        print(arrow + (
+                            "[{0}+{1}] The option is incorrect please try again").format(
+                            Fore.RED, Fore.WHITE))
             elif sys.platform.startswith('darwin'):
-                if shutil.which('/Applications/VLC.app/Contents/MacOS/VLC') is not None:
-                    os.system(
-                        "adb -s " + device + " exec-out screenrecord --output-format=h264 - | /Applications/VLC.app/Contents/MacOS/VLC --demux h264 -")
+                if shutil.which("scrcpy") is not None:
+                    subprocess.Popen(['scrcpy -s ' + device],
+                                            shell=True,
+                                            stdin=subprocess.PIPE,
+                                            stdout=subprocess.PIPE,
+                                            stderr=subprocess.STDOUT,)
                 else:
-                    print(Fore.RED + "For streaming screen we need VLC installed on your system...")
-                    print(Fore.RED + "You can install it from https://www.videolan.org/vlc/")
+                    print(arrow + ("[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(Fore.RED, Fore.WHITE))
+                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    if ans == "y" or ans == "Y":
+                        subprocess.call('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"',shell=True)
+                        subprocess.call('brew install scrcpy', shell=True)
+                    elif ans == "n" or ans == "N":
+                        print(arrow + (
+                            "[{0}+{1}] Continue with ADBSploit...").format(
+                            Fore.RED, Fore.WHITE))
+                    else:
+                        print(arrow + (
+                            "[{0}+{1}] The option is incorrect please try again").format(
+                            Fore.RED, Fore.WHITE))
+            else:
+                print(arrow + ("[{0}+{1}] An error ocurred streaming the screen...").format(Fore.RED, Fore.WHITE))
         except:
             print(arrow + ("[{0}+{1}] An error ocurred streaming the screen...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
+#TODO
+def evil_app():
+    global device
+    if device != 'none':
+        try:
+            d = adbutils.adb.device(device)
+            print(arrow + ("[{0}+{1}] Specify the App you want to infect: (com.whatsapp)").format(Fore.RED, Fore.WHITE))
+            app = input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
+            path = d.shell("pm path " + app)
+            d.shell("pull " + path[8:])
+
+
+        except:
+            print(arrow + ("[{0}+{1}] An error ocurred killing the process...").format(Fore.RED, Fore.WHITE))
+    else:
+        print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
+#TODO
+def backdoor():
+    global device
+    if device != 'none':
+        if shutil.which("msfvenom") is not None:
+            try:
+                d = adbutils.adb.device(device)
+                print(arrow + ("[{0}+{1}] Specify the payload: (com.whatsapp)").format(Fore.RED, Fore.WHITE))
+                table = Table()
+                table.add_column("Name", style="cyan")
+                table.add_column("Description", style="magenta")
+                table.add_row("meterpreter_reverse_http", "Android Meterpreter Reverse HTTP Stager")
+                table.add_row("meterpreter_reverse_https", "Android Meterpreter Reverse HTTPS Stager")
+                table.add_row("meterpreter_reverse_tcp", "Android Meterpreter Reverse TCP Stager")
+                table.add_row("meterpreter_reverse_http_inline", "Android Meterpreter Reverse HTTP Inline")
+                table.add_row("meterpreter_reverse_https_inline", "Android Meterpreter Reverse HTTPS Inline")
+                table.add_row("meterpreter_reverse_tcp_inline", "Android Meterpreter Reverse TCP Inline")
+                table.add_row("shell_reverse_http", "Android Command Shell Reverse HTTP Stager")
+                table.add_row("shell_reverse_https", "Android Command Shell Reverse HTTP Stager")
+                table.add_row("shell_reverse_tcp", "Android Command Shell Reverse HTTP Stager")
+                console = Console()
+                console.print(table)
+                print(arrow + ("[{0}+{1}] Specify the payload: (meterpreter_reverse_http)").format(Fore.RED, Fore.WHITE))
+                payload = input(arrow + " adbsploit" + Fore.RED + "(backdoor) " + Fore.WHITE + "> ")
+                if payload == "":
+                    print()
+                elif payload == "meterpreter_reverse_http":
+                    print()
+                elif payload == "meterpreter_reverse_https":
+                    print()
+                elif payload == "meterpreter_reverse_tcp":
+                    print()
+                elif payload == "meterpreter_reverse_http_inline":
+                    print()
+                elif payload == "meterpreter_reverse_https_inline":
+                    print()
+                elif payload == "meterpreter_reverse_tcp_inline":
+                    print()
+                elif payload == "shell_reverse_http":
+                    print()
+                elif payload == "shell_reverse_httpS":
+                    print()
+                elif payload == "shell_reverse_TCP":
+                    print()
+                else:
+                    print(arrow + ("[{0}+{1}] Select a correct payload...").format(Fore.RED, Fore.WHITE))
+            except:
+                print(arrow + ("[{0}+{1}] An error ocurred generating the backdoor...").format(Fore.RED, Fore.WHITE))
+        else:
+            print(arrow + ("[{0}+{1}] ADBSploit use Metasploit for generating backdoors, you must install to use this option").format(
+                Fore.RED, Fore.WHITE))
+            print(arrow + (
+                "[{0}+{1}] Install it via https://github.com/rapid7/metasploit-framework/wiki/Nightly-Installers ").format(
+                Fore.RED, Fore.WHITE))
     else:
         print(arrow + ("[{0}+{1}] You must select a device before...").format(Fore.RED, Fore.WHITE))
 
@@ -1117,11 +1323,13 @@ def clear():
         os.system('clear')
 
     f = Figlet()
-    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard",
-            "standard", "starwars", "stop"]
+    list = ["graffiti", "slant", "avatar", "bell", "big", "doom",
+            "standard", "stop"]
     f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
+    print("v0.3" + "\t \t \t \t" + "Developed by MesQ at " + Fore.RED + "https://github.com/mesquidar/adbsploit ")
+    print("")
+    print(Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
 
 
 def version():
@@ -1130,7 +1338,7 @@ def version():
     table.add_column("Version", style="cyan")
     table.add_column("URL", style="magenta")
     table.add_column("Developed", style="magenta")
-    table.add_row('0.1', "https://github.com/mesquidar/adbsploit", 'Ruben Mesquida')
+    table.add_row('0.2.1', "https://github.com/mesquidar/adbsploit", 'MesQ')
     console = Console()
     console.print(table)
 
@@ -1142,7 +1350,7 @@ def help():
     table.add_column("Command", style="cyan")
     table.add_column("Description", style="magenta")
     table.add_row('devices', 'List all devices detected', 'select', 'Select the device to use')
-    table.add_row('connect', 'Connect to teh device', 'list-forward', 'List forward ports')
+    table.add_row('connect', 'Connect to the device', 'list-forward', 'List forward ports')
     table.add_row('wifi', 'Manage the wifi of the device', 'start-app', 'Start an app')
     table.add_row('stop-app', 'Stop an app', 'clear-app', 'Clear cache of the app')
     table.add_row('airplane', 'Manage the airplane mode', 'dumpsys', 'Provide info about system services (Needs Root)')
@@ -1156,18 +1364,19 @@ def help():
     table.add_row('netstat', 'Show the netstat of the device', 'sound', 'Control teh sound of the device')
     table.add_row('check-screen', 'Check the status of the screen', 'dump-hierarchy', 'Dump the hierarchy info')
     table.add_row('keyevent', 'Send a keyevent to the device', 'show-keyevents', 'Show the keyevents')
-    table.add_row('open-browser', 'Open a URL in teh device', 'remove-password',
+    table.add_row('open-browser', 'Open a URL in the device', 'remove-password',
                   'Remove the lock screen password (Needs Root))')
     table.add_row('swipe', 'Swipe the screen', 'screen', 'Change the screen status ON/OFF')
     table.add_row('unlock-screen', 'Unlock the screen of the device', 'lock-screen', 'Lock the screen of the device')
     table.add_row('show-mac', 'Show teh mac address of the device', 'dump-meminfo', 'Dump de memory info of the device')
     table.add_row('process-list', 'List all the device process', 'tcpip', 'Change the device to tcp')
-    table.add_row('extract-app', 'Extract teh apk of an installed app', 'extract-contacts',
+    table.add_row('extract-app', 'Extract the apk of an installed app', 'extract-contacts',
                   'Show the contacts saved in the device')
     table.add_row('extract-sms', 'Extract sms saved in the phone', 'delete-sms', 'Delete the sms specified')
     table.add_row('send-sms', 'Send sms to the specified phone', 'recovery-mode', 'Enter the device in recovery mode')
     table.add_row('fastboot-mode', 'Enter in fastboot mode', 'device-info', 'Get device info (IMEI, Android Id,...)')
-    table.add_row('kill-process', 'Kill the process on the device', '', '')
+    table.add_row('kill-process', 'Kill the process on the device', 'screenrecord', 'Records the device screen')
+    table.add_row('remote-control', 'Take control of the target device', '', '')
     table.add_row('clear', 'Clear the screen of adbsploit', 'version', 'Show the version of adbsploit')
     table.add_row('exit', 'Exit adbsploit', '', '')
     console = Console()
@@ -1178,9 +1387,11 @@ def help():
 # Run script
 if __name__ == '__main__':
     f = Figlet()
-    list = ["graffiti", "slant", "acrobatic", "avatar", "bell", "big", "digital", "doom", "epic", "smkeyboard",
-            "standard", "starwars", "stop"]
+    list = ["graffiti", "slant", "avatar", "bell", "big", "doom",
+            "standard", "stop"]
     f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
-    print("v0.1" + "\t \t \t \t" + Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
+    print("v0.2.1" + "\t \t \t \t" + "Developed by MesQ at " + Fore.RED + "https://github.com/mesquidar/adbsploit ")
+    print("")
+    print(Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
     main()
