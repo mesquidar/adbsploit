@@ -37,6 +37,14 @@ adbsploit
 - Type help for more information
 
 # Functionalities
+
+## v0.2.1
+Corrections on help and version commands
+
+### Added
+- Screenrecord
+- Remote Control
+
 ## v0.2
 
 ### Added:
