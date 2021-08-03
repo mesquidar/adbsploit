@@ -1,10 +1,6 @@
 #!/usr/bin/python3
 # coding: utf8
-"""
-NOTE:
-	GitHub: https://github.com/mesquidar/adbsploit/
-	Pull request by WitBlack
-"""
+
 try:
     import os
     import shutil
@@ -17,7 +13,7 @@ try:
     from rich.console import Console
     from rich.table import Table
 except:
-    print('\x1b[0;31mSome deepends not installed.')
+    print('\x1b[0;31mSome deependencies not installed.')
     print('RUN: "pip install colorama rich adbutils pyfiglet" to install missing items.')
     os.exit(1)
     
