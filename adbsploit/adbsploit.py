@@ -15,7 +15,7 @@ try:
 except:
     print('\x1b[0;31mSome deependencies not installed.')
     print('RUN: "pip install colorama rich adbutils pyfiglet" to install missing items.')
-    os.exit(1)
+    sys.exit(1)
     
 # ***********************************************************************
 # Variables and main
