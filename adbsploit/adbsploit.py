@@ -216,17 +216,34 @@ def main():
 # *******************************************************************************
 # Functions
 
-def devices():
+def devices(rstuff=False):
     '''devices'''
     table = Table()
-    table.add_column("Device detected", style="cyan")
-    table.add_column("Model", style="magenta")
-    table.add_column("Name", style="magenta")
-    table.add_column("Device", style="magenta")
-    for d in adbutils.adb.device_list():
-        table.add_row(d.serial, d.prop.model, d.prop.name, d.prop.device)
-    console = Console()
-    console.print(table)
+    if rstuff:
+        count = 1
+        devicedict = {}
+        table.add_column("Choice", style="cyan")
+        table.add_column("Device detected", style="cyan")
+        table.add_column("Model", style="magenta")
+        table.add_column("Name", style="magenta")
+        table.add_column("Device", style="magenta")
+        for d in adbutils.adb.device_list():
+            table.add_row( str(count), d.serial, d.prop.model, d.prop.name, d.prop.device)
+            devicedict[str(count)] = d.serial
+            count += 1
+        console = Console()
+        console.print(table)
+        return devicedict
+        
+    else:
+        table.add_column("Device detected", style="cyan")
+        table.add_column("Model", style="magenta")
+        table.add_column("Name", style="magenta")
+        table.add_column("Device", style="magenta")
+        for d in adbutils.adb.device_list():
+            table.add_row(d.serial, d.prop.model, d.prop.name, d.prop.device)
+        console = Console()
+        console.print(table)
 
 
 def connect():
@@ -237,9 +254,10 @@ def connect():
 
 
 def select():
-    print(("[{0}+{1}] Enter the phone serial").format(Fore.RED, Fore.WHITE))
+    devicedict = devices(True)
+    print(("[{0}+{1}] Choose Device").format(Fore.RED, Fore.WHITE))
     dev = my_input(arrow + " adbsploit" + Fore.RED + "(select) " + Fore.WHITE + "> ")
-    output = adbutils.adb.device(serial=dev)
+    output = adbutils.adb.device(serial=devicedict[dev])
     global device
     try:
         output.is_screen_on()
