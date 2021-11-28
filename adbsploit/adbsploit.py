@@ -257,15 +257,19 @@ def select():
     devicedict = devices(True)
     print(("[{0}+{1}] Choose Device").format(Fore.RED, Fore.WHITE))
     dev = my_input(arrow + " adbsploit" + Fore.RED + "(select) " + Fore.WHITE + "> ")
-    output = adbutils.adb.device(serial=devicedict[dev])
-    global device
     try:
-        output.is_screen_on()
-        print("Selected device: " + Fore.GREEN + output.serial)
-        device = output.serial
-        main()
+        output = adbutils.adb.device(serial=devicedict[dev])
+        global device
+        try:
+            output.is_screen_on()
+            print("Selected device: " + Fore.GREEN + output.serial)
+            device = output.serial
+            main()
+        except:
+            print(arrow + ("[{0}+{1}] That device doesn't exist...").format(Fore.RED, Fore.WHITE))
     except:
         print(arrow + ("[{0}+{1}] That device doesn't exist...").format(Fore.RED, Fore.WHITE))
+    
 
 
 def list_forward():
