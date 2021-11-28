@@ -271,7 +271,6 @@ def select():
         print(arrow + ("[{0}+{1}] That device doesn't exist...").format(Fore.RED, Fore.WHITE))
     
 
-
 def list_forward():
     global device
     table = Table()
