@@ -25,7 +25,7 @@ device = 'none'
 
 def my_input(text):
     try:
-        return input(text)
+        return input(text).lstrip().rstrip().lower()
     except:
         print(Fore.RED + '[*] ' + Fore.YELLOW + 'Exit.')
         sys.exit(1)
