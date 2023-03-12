@@ -31,7 +31,7 @@ adbsploit
 - Python 3.X
 
 ## Usage
-- Execute the commad: devices
+- Execute the command: devices
 - Then select the device  with: select
 - You can connect to device using the command: connect
 - Type help for more information
@@ -62,8 +62,8 @@ Corrections on help and version commands
 - Connect Devices
 - TCPIP
 - Forward Ports
-- Airplane Managment
-- Wifi Managment
+- Airplane Management
+- Wifi Management
 - Sound Control
 - List/Info Apps
 - WPA Supplicant Extraction
